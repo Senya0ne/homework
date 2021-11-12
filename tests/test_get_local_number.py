@@ -1,7 +1,6 @@
 from src.MainClass import MainClass
 
 
-def test_get_class_string():
-    private_string = MainClass()
-    assert "Hello" in private_string.get_class_string(), "Строка не содержит Hello"
-    assert "hello" in private_string.get_class_string(), "Строка не содержит hello"
+def test_get_сlass_number():
+    private_number = MainClass()
+    assert private_number.get_local_number() > 45, "Число меньше 45"

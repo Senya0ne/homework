@@ -1,5 +1,5 @@
 class MainClass():
-    _private_string = "Hello, world"
+    _class_number = 20
 
-    def get_class_string(self):
-        return self._private_string
+    def get_local_number(self):
+        return self._class_number
