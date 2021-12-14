@@ -18,7 +18,6 @@ def test_search_articles_and_cancel_search(driver):
         (By.ID, "org.wikipedia:id/page_list_item_container"),
         "Not found elements in search results", 10)
     assert len(list_elements) > 1
-
     driver.wait_for_element_and_clear((By.ID, "org.wikipedia:id/search_src_text"),
                                       "Cannot find search field",
                                       5)
@@ -27,3 +26,4 @@ def test_search_articles_and_cancel_search(driver):
                                       5)
     driver.wait_for_element_not_present((By.ID, "org.wikipedia:id/search_close_btn"),
                                         "X is still present on the page", 5)
+

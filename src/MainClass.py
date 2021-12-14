@@ -1,3 +1,4 @@
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -47,3 +48,13 @@ class BaseMethods:
         get_text = element.get_attribute("text")
         assert get_text == text, error_message
         return element
+
+    def swipe_element_to_left(self, by: tuple, error_message: str):
+        element = self.wait_for_element_present(by, error_message, timeout=5)
+        left_x = element.location.get('x')
+        right_x = left_x + element.size.get('width')
+        upper_y = element.location.get('y')
+        lower_y = upper_y + element.size.get('height')
+        middle_y = (upper_y + lower_y) / 2
+
+        TouchAction(self.driver).press(x=right_x, y=middle_y).wait(300).move_to(x=left_x, y=middle_y).release().perform()
