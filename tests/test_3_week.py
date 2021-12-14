@@ -95,3 +95,17 @@ def test_search_element_after_remove_from_directory(driver):
                                     "Cannot find title for Python article",
                                     15)
 
+
+def test_assert_has_present_title_for_topic(driver):
+    driver = BaseMethods(driver)
+    driver.wait_for_element_and_click((By.XPATH, "//*[contains(@text,'Search Wikipedia')]"),
+                                      "Cannot find search Wikipedia input", 5)
+    driver.wait_for_element_and_send_keys((By.XPATH, "//*[contains(@text, 'Search…')]"), "Java",
+                                          "Cannot find search input", 5)
+    driver.wait_for_element_and_click((By.XPATH,
+                                       "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+                                      "Cannot find 'Object-oriented programming language' topic searching by 'Java'",
+                                      5)
+    driver.assert_element_present((By.ID,
+                                   "org.wikipedia:id/view_page_title_text"),
+                                  "Cannot find title for article")

@@ -58,3 +58,7 @@ class BaseMethods:
         middle_y = (upper_y + lower_y) / 2
 
         TouchAction(self.driver).press(x=right_x, y=middle_y).wait(300).move_to(x=left_x, y=middle_y).release().perform()
+
+    def assert_element_present(self, by: tuple, error_message: str):
+        element = self.wait_for_element_present(by, error_message, timeout=0)
+        return element
