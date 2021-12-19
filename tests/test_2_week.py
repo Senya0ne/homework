@@ -1,15 +1,15 @@
-from src.MainClass import BaseMethods
+from src.ui.MainPageObject import MainPageObject
 from selenium.webdriver.common.by import By
 
 
 def test_search_element_has_text(driver):
-    driver = BaseMethods(driver)
+    driver = MainPageObject(driver)
     driver.assert_element_has_text((By.XPATH, "//*[contains(@text,'Search Wikipedia')]"), "Search Wikipedia",
                                    "Not found text 'Search Wikipedia' ", 5)
 
 
 def test_search_articles_and_cancel_search(driver):
-    driver = BaseMethods(driver)
+    driver = MainPageObject(driver)
     driver.wait_for_element_and_click((By.XPATH, "//*[contains(@text,'Search Wikipedia')]"),
                                       "Not found element Search Wikipedia", 5)
     driver.wait_for_element_and_send_keys((By.ID, "org.wikipedia:id/search_src_text"),

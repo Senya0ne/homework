@@ -1,9 +1,9 @@
-from src.MainClass import BaseMethods
+from src.ui.MainPageObject import MainPageObject
 from selenium.webdriver.common.by import By
 
 
 def test_search_element_after_remove_from_directory(driver):
-    driver = BaseMethods(driver)
+    driver = MainPageObject(driver)
     driver.wait_for_element_and_click((By.XPATH, "//*[contains(@text,'Search Wikipedia')]"),
                                       "Cannot find search Wikipedia input", 5)
     driver.wait_for_element_and_send_keys((By.XPATH, "//*[contains(@text, 'Search…')]"), "Java",
@@ -97,7 +97,7 @@ def test_search_element_after_remove_from_directory(driver):
 
 
 def test_assert_has_present_title_for_topic(driver):
-    driver = BaseMethods(driver)
+    driver = MainPageObject(driver)
     driver.wait_for_element_and_click((By.XPATH, "//*[contains(@text,'Search Wikipedia')]"),
                                       "Cannot find search Wikipedia input", 5)
     driver.wait_for_element_and_send_keys((By.XPATH, "//*[contains(@text, 'Search…')]"), "Java",

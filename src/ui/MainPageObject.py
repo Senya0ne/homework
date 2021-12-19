@@ -1,6 +1,8 @@
 from appium.webdriver.common.touch_action import TouchAction
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.support.wait import WebDriverWait
+
+from ..BaseMethods import BaseMethods
 
 
 class MainClass:
@@ -13,17 +15,18 @@ class MainClass:
         return self._class_number
 
 
-class BaseMethods:
+class MainPageObject(BaseMethods):
 
-    def __init__(self, driver):
-        self.driver = driver
+    # def __init__(self, driver):
+    #     self.driver = driver
 
-    def wait_for_element_present(self, by: tuple, error_message: str, timeout: int):
-        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(by), message=error_message)
 
-    def wait_for_elements_present(self, by: tuple, error_message: str, timeout: int):
-        elements = WebDriverWait(self.driver, timeout).until(EC.presence_of_all_elements_located(by), message=error_message)
-        return elements
+    # def wait_for_element_present(self, by: tuple, error_message: str, timeout: int):
+    #     return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(by), message=error_message)
+    #
+    # def wait_for_elements_present(self, by: tuple, error_message: str, timeout: int):
+    #     elements = WebDriverWait(self.driver, timeout).until(EC.presence_of_all_elements_located(by), message=error_message)
+    #     return elements
 
     def wait_for_element_and_click(self, by: tuple, error_message: str, timeout: int):
         element = self.wait_for_element_present(by, error_message, timeout)

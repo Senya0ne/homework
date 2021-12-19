@@ -1,4 +1,4 @@
-from src.MainClass import MainClass
+from src.ui.MainPageObject import MainClass
 
 
 def test_get_сlass_number():
