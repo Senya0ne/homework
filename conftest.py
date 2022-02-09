@@ -3,13 +3,26 @@ import os
 import pytest
 from appium import webdriver
 
+from src.ui.WelcomePageObject import WelcomePageObject
 
-def get_capabilities_by_platform_env():
+
+class Platform:
     platform = os.environ.get('PLATFORM')
+
     PLATFORM_IOS = 'ios'
     PLATFORM_ANDROID = 'android'
+    URL = "http://127.0.0.1:4723/wd/hub"
 
-    if platform == PLATFORM_ANDROID:
+    def get_capabilities_by_platform_env(self):
+        if self.platform == self.is_android():
+            return self.get_android_desired_capabilites()
+        elif self.platform == self.is_ios():
+            return self.get_ios_desired_capabilities()
+        else:
+            raise Exception("Cannot get run platform from env variable. Platform value " + str(self.platform))
+
+    @staticmethod
+    def get_android_desired_capabilites():
         desired_capabilities = {
             "platformName": "Android",
             "platformVersion": "11",
@@ -20,18 +33,31 @@ def get_capabilities_by_platform_env():
             "appPackage": "org.wikipedia",
             "appActivity": ".main.MainActivity"
         }
-    elif platform == PLATFORM_IOS:
+        return desired_capabilities
+
+    @staticmethod
+    def get_ios_desired_capabilities():
         desired_capabilities = {"platformName": "iOS",
                                 "deviceName": "iPhone 13",
                                 "platformVersion": "15.2",
                                 "app": "/Users/svasilchenko/Desktop/test_appium_java/apks/Wikipedia.app"}
-    else:
-        raise Exception("Cannot get run platform from env variable. Platform value " + str(platform))
-    return desired_capabilities
+        return desired_capabilities
+
+    def is_android(self):
+        return self.PLATFORM_ANDROID
+
+    def is_ios(self):
+        return self.PLATFORM_IOS
 
 
 @pytest.fixture(scope='function')
 def driver(request):
-    driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_capabilities=get_capabilities_by_platform_env())
+    config = Platform()
+    driver = webdriver.Remote(config.URL,
+                              desired_capabilities=config.get_capabilities_by_platform_env())
+    if config.platform == config.is_ios:
+        driver = WelcomePageObject(driver)
+        # TODO Дописать скип для онбординга IOS
+
     request.addfinalizer(driver.quit)
     return driver
